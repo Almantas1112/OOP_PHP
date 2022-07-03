@@ -4,8 +4,18 @@ use Doctrine\ORM\EntityManager;
 
 class dbFunction
 {
-
-    public function UserRegister($username, $password){
+    public function setContent($title, $content)
+    {
+        require 'bootstrap.php';
+        $page = new Pages();
+        $page->setTitle($title);
+        $page->setContent($content);
+        $entityManager->persist($page);
+        $entityManager->flush();
+    }
+    
+    public function UserRegister($username, $password)
+    {
         $password = hash('sha256', $password);
         $user = new users();
         $user->setName($username);

@@ -6,7 +6,8 @@
     },
     "autoload": {
         "files": [
-            "src/Models/users.php"
+            "src/Models/users.php",
+            "src/Models/pages.php"
         ]
     }
 }

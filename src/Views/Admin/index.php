@@ -72,8 +72,7 @@ if(isset($_POST['register']))
             if(!$register)
             {
                 echo 'Account was created, wait for Developer to confirm your application!';
-            }
-            else {
+            } else {
                 echo 'Failed to Create! Please try again!';
             }
         }

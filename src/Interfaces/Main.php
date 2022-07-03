@@ -38,7 +38,7 @@ class Main implements MainInterfaces
                 </p>
             </div>
             <div class="card-footer text-center">
-                © Almantas Anciūnas CMS | TO ADMIN DASHBOARD -> <a class="btn btn-primary" href="/CMS_Sprint/admin/Main" role="button">ADMIN</a>
+                © Almantas Anciūnas 2022 - '.date("Y").' CMS | TO ADMIN DASHBOARD -> <a class="btn btn-primary" href="/CMS_Sprint/admin/Main" role="button">ADMIN</a>
             </div>
         </div>
         <body>

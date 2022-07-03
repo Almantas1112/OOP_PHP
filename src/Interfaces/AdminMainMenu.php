@@ -27,8 +27,11 @@ class AdminMainMenu implements AdminInterfaces
         </div>
         ';
     }
+
     public function getAdminDashboard()
     {
+        require_once 'bootstrap.php';
+        $title = $entityManager->getRepository('pages')->findAll();
         echo '
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -52,6 +55,27 @@ class AdminMainMenu implements AdminInterfaces
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Manage Pages</h5>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Page</th>
+                                <th scope="col">Actions</th>
+                            </tr>';
+                        foreach ($title as $t){
+                            echo '<tbody><tr>
+                            <td class="w-50">'. $t->getTitle() .'</td>
+                            <td class="btn-group w-100">
+                            <form action="" method="POST">
+                            <input type="hidden" name="delete" value="'. $t->getTitle() .'"/>
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                            <form action="" method="GET">
+                            <input type="hidden" name="update" value=""/>
+                            <input type="submit" value="Update" class="btn btn-success"/>
+                            </form></td></tbody></tr>';
+                        }
+                        echo '</thead>
+                    </table>
                     <form action="" method="GET">
                         <input type="hidden" name="admin" value="Add_Page" class="btn btn-info"/>
                         <input type="submit" value="Add Page" class="btn btn-info"/>
@@ -87,13 +111,12 @@ class AdminMainMenu implements AdminInterfaces
                 <form action="" method="POST">
                     <div class="mb-3">
                         <label for="Title" class="form-label">Title:</label>
-                        <input type="text" class="form-control" name="title" id="Title">
+                        <input type="text" class="form-control" name="title" id="Title" required>
                     </div>
                     <div class="mb-3">
                     <label for="Content" class="form-label">Content:</label>
-                    <textarea class="form-control pb-5" name="content" id="Content" rows="3"></textarea>
+                    <textarea class="form-control pb-5" name="content" id="Content" rows="3" required></textarea>
                 </div>
-                </form>
                     <input type="submit" name="submit" value="Submit" class="btn btn-info"/>
                 </form>
             </div>
