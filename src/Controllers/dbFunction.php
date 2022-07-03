@@ -13,7 +13,7 @@ class dbFunction
         $entityManager->persist($page);
         $entityManager->flush();
     }
-    
+
     public function UserRegister($username, $password)
     {
         $password = hash('sha256', $password);
@@ -59,5 +59,18 @@ class dbFunction
         require 'bootstrap.php';
         $approved = $entityManager->getRepository('users')->findBy(array('name' => "$username", 'approved' => '1'));
         return $approved;
+    }
+    public function deletePage($id)
+    {
+        require 'bootstrap.php';
+        $id = $entityManager->getRepository('pages')->find($id);
+        if($id == 0)
+        {
+            echo 'Cannot delete home page!';
+        } else {
+            $entityManager->remove($id);
+            $entityManager->flush();
+            header("Location: /CMS_Sprint/admin");
+        }
     }
 }

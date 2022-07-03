@@ -64,15 +64,23 @@ class AdminMainMenu implements AdminInterfaces
                         foreach ($title as $t){
                             echo '<tbody><tr>
                             <td class="w-50">'. $t->getTitle() .'</td>
-                            <td class="btn-group w-100">
-                            <form action="" method="POST">
-                            <input type="hidden" name="delete" value="'. $t->getTitle() .'"/>
-                            <input type="submit" value="Delete" class="btn btn-danger" />
-                            </form>
-                            <form action="" method="GET">
-                            <input type="hidden" name="update" value=""/>
-                            <input type="submit" value="Update" class="btn btn-success"/>
-                            </form></td></tbody></tr>';
+                            <td class="btn-group w-100">';
+                            if($t->getTitle() == 'Home')
+                            {
+                                echo '<form action="" method="GET">
+                                <input type="hidden" name="update" value=""/>
+                                <input type="submit" value="Update" class="btn btn-success"/>
+                                </form></td></tbody></tr>';
+                            } else {
+                                echo '<form action="" method="POST">
+                                <input type="hidden" name="delete" value="'. $t->getId() .'"/>
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                                </form>
+                                <form action="" method="GET">
+                                <input type="hidden" name="update" value=""/>
+                                <input type="submit" value="Update" class="btn btn-success"/>
+                                </form></td></tbody></tr>';
+                            }
                         }
                         echo '</thead>
                     </table>

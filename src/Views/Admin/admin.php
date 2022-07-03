@@ -12,12 +12,8 @@ if(null !== $_SESSION['valid'] and null !== $_SESSION['timeout'] and null !== ['
     }
     if(isset($_POST['submit']))
     {
-        // echo 'Hello!';
         $title = $_POST['title'];
         $content = $_POST['content'];
-        // echo $title;
-        // echo '<br>';
-        // echo $content;
         $dbAction = new dbFunction();
         $addPage = $dbAction->setContent($title, $content);
         if(!$addPage)
@@ -26,6 +22,11 @@ if(null !== $_SESSION['valid'] and null !== $_SESSION['timeout'] and null !== ['
         } else {
             echo 'Something went wrong!';
         }
+    }
+    if(isset($_POST['delete'])){
+        $pageid = $_POST['delete'];
+        $dbDelete = new dbFunction();
+        $dbDelete->deletePage($pageid);
     }
 } else {
     header("Location: /CMS_Sprint/404");
