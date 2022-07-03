@@ -6,6 +6,8 @@ class Main implements MainInterfaces
 {
     public function index()
     {
+        require_once 'bootstrap.php';
+        $title = $entityManager->getRepository('pages')->findAll();
         echo '
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -23,20 +25,41 @@ class Main implements MainInterfaces
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                        </ul>
+                        <ul class="navbar-nav">';
+                            foreach ($title as $ti)
+                            {
+                                echo '
+                                <li class="nav-item">
+                                    <form action="" method="POST">
+                                        <input class="nav-link active" aria-current="page" style="background:none; border:none;" aria-current="page" type="submit" name="pagging" value="'. $ti->getTitle() .'" />
+                                    </form>
+                                </li>
+                                ';
+                            }
+                        echo '</ul>
                     </div>
                 </div>
             </nav>
-            <div class="card-body bg-light">
-                <h5 class="card-title text-center">Special title treatment</h5>
-                <p class="card-text">
-                With supporting text below as a natural lead-in to additional content.
+            <div class="card-body bg-light">';
+            if(!isset($_POST['pagging']))
+            {
+                echo '
+                <h5 class="card-title text-center">Main Page</h5>
+                <p class="card-text text-center">
+                Hello to CMS! This is main page! feel free to mess around in this page!
                 </p>
-            </div>
+                ';
+            }
+            else {
+                $text = $entityManager->getRepository('pages')->findBy(array('title' => $_POST['pagging']));
+                foreach ($text as $t){
+                    echo '<h5 class="card-title text-center">'. $t->getTitle() .'</h5>';
+                    echo '<p class="card-text">';
+                    echo ''.$t->getContent().'';
+                    echo '</p>';
+                }
+            }
+            echo '</div>
             <div class="card-footer text-center">
                 © Almantas Anciūnas 2022 - '.date("Y").' CMS | TO ADMIN DASHBOARD -> <a class="btn btn-primary" href="/CMS_Sprint/admin/Main" role="button">ADMIN</a>
             </div>
