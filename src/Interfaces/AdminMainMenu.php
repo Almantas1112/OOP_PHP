@@ -46,7 +46,7 @@ class AdminMainMenu implements AdminInterfaces
                             <a class="nav-link active" href="#">Admin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/CMS_Sprint/logout.php">Log out</a>
+                            <a class="nav-link" href="/CMS_Sprint/logout">Log out</a>
                         </li>
                     </ul> 
                 </div>
@@ -76,10 +76,10 @@ class AdminMainMenu implements AdminInterfaces
             <div class="card-header">
                 <ul class="nav nav-pills card-header-pills">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/CMS_Sprint/admin.php">Admin</a>
+                        <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/CMS_Sprint/logout.php">Log out</a>
+                        <a class="nav-link" href="/CMS_Sprint/logout">Log out</a>
                     </li>
                 </ul> 
             </div>
@@ -135,7 +135,7 @@ class AdminMainMenu implements AdminInterfaces
             </p>
             <p class="change_link">
                 Already a member ?
-                <a href="index.php" class="btn btn-success"> Go and log in</a>
+                <a href="index" class="btn btn-success"> Go and log in</a>
             </p>
         </form>
     </div>

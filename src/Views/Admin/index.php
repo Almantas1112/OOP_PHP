@@ -25,7 +25,7 @@
 
 <?php
 function redirect_to_admin_page(){
-    header("Location: /CMS_Sprint/admin.php");
+    header("Location: /CMS_Sprint/admin");
 }
 
 require_once(realpath('src/Controllers/dbFunction.php'));

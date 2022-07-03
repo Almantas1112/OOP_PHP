@@ -19,17 +19,3 @@
     );
 
     $entityManager = EntityManager::create($conn, $config);
-
-//DEV-MODE INFO
-//($enable = true [Enables more options in admin dashboard (DEV-MODE)])
-//($enable = false [Disables options in admin dashboard (DEV-MODE OFF)])
-// $DevName - provides DEV name
-// By these two parameters checks if DEV-MODE options should be enabled or not!
-// DEV-MODE includes [admin dashboard users approval and changing web sites styles!]
-
-//By default (as it set below) you can accept or decline approvals (if $enabled = false)
-//This option is disabled!
-    class Dev {
-        public $DevName = 'Admin';
-        public $enabled = true;
-    }

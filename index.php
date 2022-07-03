@@ -2,30 +2,51 @@
 $request = $_SERVER['REQUEST_URI'];
 switch($request){
     case '/':
-        require (__DIR__ . '/src/Views/Admin/index.php');
+        require (__DIR__ . '/src/Views/index.php');
         break;
     case '':
-        require (__DIR__ . '/src/Views/Admin/index.php');
+        require (__DIR__ . '/src/Views/index.php');
         break;
     case '/CMS_Sprint/':
-        require (__DIR__ . '/src/Views/Admin/index.php');
-        break;
-    case '/CMS_Sprint/index.php?path=Join-us-now%2F':
-        require (__DIR__ . '/src/Views/Admin/index.php');
+        require (__DIR__ . '/src/Views/index.php');
         break;
     case '/CMS_Sprint/index.php':
+        require (__DIR__ . '/src/Views/index.php');
+        break;
+    case '/CMS_Sprint/admin/Main?path=Join-us-now%2F';
         require (__DIR__ . '/src/Views/Admin/index.php');
         break;
-    case '/CMS_Sprint/?path=Join-us-now%2F':
+    case '/CMS_Sprint/admin/index';
         require (__DIR__ . '/src/Views/Admin/index.php');
         break;
-    case '/CMS_Sprint/admin.php?admin=Add_Page';
-        require (__DIR__ . '/src/Views/Admin/admin.php');
+    case '/CMS_Sprint/admin/index?path=Join-us-now%2F';
+        require (__DIR__ . '/src/Views/Admin/index.php');
+        break;
+    case '/CMS_Sprint/admin/Main':
+        require (__DIR__ . '/src/Views/Admin/index.php');
         break;
     case '/CMS_Sprint/admin.php';
         require (__DIR__ . '/src/Views/Admin/admin.php');
         break;
+    case '/CMS_Sprint/admin.php?admin=Add_Page';
+        require (__DIR__ . '/src/Views/Admin/admin.php');
+        break;
+    case '/CMS_Sprint/admin?admin=Add_Page#';
+        require (__DIR__ . '/src/Views/Admin/admin.php');
+        break;
+        case '/CMS_Sprint/admin?admin=Add_Page';
+        require (__DIR__ . '/src/Views/Admin/admin.php');
+        break;
     case '/CMS_Sprint/logout.php';
+        require (__DIR__ . '/src/Views/Admin/logout.php');
+        break;
+    case '/CMS_Sprint/admin/Add';
+        require (__DIR__ . '/src/Views/Admin/admin.php');
+        break;
+    case '/CMS_Sprint/admin';
+        require (__DIR__ . '/src/Views/Admin/admin.php');
+        break;
+    case '/CMS_Sprint/logout';
         require (__DIR__ . '/src/Views/Admin/logout.php');
         break;
     case '/CMS_Sprint/404';
