@@ -1,0 +1,12 @@
+{
+    "require": {
+        "doctrine/orm": "^2.12",
+        "symfony/cache": "^6.1",
+        "doctrine/annotations": "^1.13"
+    },
+    "autoload": {
+        "files": [
+            "src/Models/users.php"
+        ]
+    }
+}
