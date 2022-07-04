@@ -15,13 +15,18 @@ if(null !== $_SESSION['valid'] and null !== $_SESSION['timeout'] and null !== ['
         $title = $_POST['title'];
         $content = $_POST['content'];
         $dbAction = new dbFunction();
-        $addPage = $dbAction->setContent($title, $content);
-        if(!$addPage)
-        {
-            header("Location: /CMS_Sprint/admin");
+        if(array() == $dbAction->samePage($title)){
+            $addPage = $dbAction->setContent($title, $content);
+            if(!$addPage)
+            {
+                header("Location: /CMS_Sprint/admin");
+            } else {
+                echo 'Something went wrong!';
+            }
         } else {
-            echo 'Something went wrong!';
+            echo 'Page with same name already exists!';
         }
+
     }
     if(isset($_POST['delete'])){
         $pageid = $_POST['delete'];

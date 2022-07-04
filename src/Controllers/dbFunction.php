@@ -60,17 +60,17 @@ class dbFunction
         $approved = $entityManager->getRepository('users')->findBy(array('name' => "$username", 'approved' => '1'));
         return $approved;
     }
+    public function samePage($title){
+        require 'bootstrap.php';
+        $exists = $entityManager->getRepository('pages')->findBy(array('title' => $title));
+        return $exists;
+    }
     public function deletePage($id)
     {
         require 'bootstrap.php';
         $id = $entityManager->getRepository('pages')->find($id);
-        if($id == 0)
-        {
-            echo 'Cannot delete home page!';
-        } else {
-            $entityManager->remove($id);
-            $entityManager->flush();
-            header("Location: /CMS_Sprint/admin");
-        }
+        $entityManager->remove($id);
+        $entityManager->flush();
+        header("Location: /CMS_Sprint/admin");
     }
 }
