@@ -31,6 +31,7 @@ class AdminMainMenu implements AdminInterfaces
     {
         require 'bootstrap.php';
         $approvals = $entityManager->getRepository('users')->findAll();
+        $app = $entityManager->getRepository('users')->findBy(array('name' => $_SESSION['username']));
         echo '
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -38,26 +39,48 @@ class AdminMainMenu implements AdminInterfaces
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
         ';
-        echo '
-        <div class="card text-center mx-auto w-50">
-            <div class="card-header">
-                <ul class="nav nav-pills card-header-pills">
-                    <li class="nav-item mx-1">
-                        <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
-                    </li>
-                    <li class="nav-item mx-1">
-                    <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
-                    </li>
-                    <li class="nav-item">
-                    <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
-                    <i class="bi bi-gear"></i>
-                    </button>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
-                    </li>
-                </ul> 
-            </div>';
+        foreach ($approvals as $app)
+        {
+            if($app->getName() == 'Admin')
+            {
+                echo '
+                <div class="card text-center mx-auto w-50">
+                    <div class="card-header">
+                        <ul class="nav nav-pills card-header-pills">
+                            <li class="nav-item mx-1">
+                                <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
+                            </li>
+                            <li class="nav-item mx-1">
+                            <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                            </li>
+                            <li class="nav-item">
+                            <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
+                            <i class="bi bi-gear"></i>
+                            </button>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
+                            </li>
+                        </ul> 
+                    </div>';
+            } else {
+                echo '
+                <div class="card text-center mx-auto w-50">
+                    <div class="card-header">
+                        <ul class="nav nav-pills card-header-pills">
+                            <li class="nav-item mx-1">
+                                <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
+                            </li>
+                            <li class="nav-item mx-1">
+                            <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
+                            </li>
+                        </ul> 
+                    </div>';
+            }
+        }
             echo '
             <div class="card-body">
             <h5 class="card-title">Manage Approvals</h5>
@@ -137,6 +160,7 @@ class AdminMainMenu implements AdminInterfaces
     {
         require_once 'bootstrap.php';
         $title = $entityManager->getRepository('pages')->findAll();
+        $app = $entityManager->getRepository('users')->findBy(array('name' => $_SESSION['username']));
         echo '
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -150,27 +174,49 @@ class AdminMainMenu implements AdminInterfaces
             {
                 if($_SERVER['REQUEST_URI'] !== '/CMS_Sprint/?=Approvals')
                 {
-                    echo '
-                    <div class="card text-center mx-auto w-50">
-                        <div class="card-header">
-                            <ul class="nav nav-pills card-header-pills">
-                                <li class="nav-item mx-1">
-                                    <a class="nav-link active" href="#">Admin</a>
-                                </li>
-                                <li class="nav-item mx-1">
-                                <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
-                                </li>
-                                <li class="nav-item">
-                                <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
-                                <i class="bi bi-gear"></i>
-                                </button>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
-                                </li>
-                            </ul> 
-                        </div>
-                        <div class="card-body">
+                    foreach ($app as $app)
+                    {
+                        if($app->getName() == 'Admin')
+                        {
+                            echo '
+                            <div class="card text-center mx-auto w-50">
+                                <div class="card-header">
+                                    <ul class="nav nav-pills card-header-pills">
+                                        <li class="nav-item mx-1">
+                                            <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
+                                        </li>
+                                        <li class="nav-item mx-1">
+                                        <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                                        </li>
+                                        <li class="nav-item">
+                                        <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
+                                        <i class="bi bi-gear"></i>
+                                        </button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
+                                        </li>
+                                    </ul> 
+                                </div>';
+                        } else {
+                            echo '
+                            <div class="card text-center mx-auto w-50">
+                                <div class="card-header">
+                                    <ul class="nav nav-pills card-header-pills">
+                                        <li class="nav-item mx-1">
+                                            <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
+                                        </li>
+                                        <li class="nav-item mx-1">
+                                        <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
+                                        </li>
+                                    </ul> 
+                                </div>';
+                        }
+                    }
+                       echo '<div class="card-body">
                             <h5 class="card-title">Manage Pages</h5>
                             <table class="table">
                                 <thead>
@@ -210,32 +256,55 @@ class AdminMainMenu implements AdminInterfaces
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
                 ';
                 $name = $entityManager->getRepository('pages')->findBy(array('id' => $_GET['update']));
+                $app = $entityManager->getRepository('users')->findBy(array('name' => $_SESSION['username']));
                 foreach ($name as $n)
                 {
                     $pageTitle = $n->getTitle();
                     $pageContent = $n->getContent();
                 }
-                echo '
-                <div class="card mx-auto w-50">
-                    <div class="card-header">
-                        <ul class="nav nav-pills card-header-pills">
-                            <li class="nav-item mx-1">
-                                <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
-                            </li>
-                            <li class="nav-item mx-1">
-                            <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
-                            </li>
-                            <li class="nav-item">
-                                <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
+                foreach ($app as $app)
+                {
+                    if($app->getName() == 'Admin')
+                    {
+                        echo '
+                        <div class="card text-center mx-auto w-50">
+                            <div class="card-header">
+                                <ul class="nav nav-pills card-header-pills">
+                                    <li class="nav-item mx-1">
+                                        <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
+                                    </li>
+                                    <li class="nav-item mx-1">
+                                    <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
                                     <i class="bi bi-gear"></i>
-                                </button>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/CMS_Sprint/logout">Log out</a>
-                            </li>
-                        </ul> 
-                    </div>
-                    <div class="card-body">
+                                    </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
+                                    </li>
+                                </ul> 
+                            </div>';
+                    } else {
+                        echo '
+                        <div class="card text-center mx-auto w-50">
+                            <div class="card-header">
+                                <ul class="nav nav-pills card-header-pills">
+                                    <li class="nav-item mx-1">
+                                        <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
+                                    </li>
+                                    <li class="nav-item mx-1">
+                                    <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
+                                    </li>
+                                </ul> 
+                            </div>';
+                    }
+                }
+                    echo '<div class="card-body">
                         <form action="" method="POST">
                             <div class="mb-3">
                                 <label for="Title" class="form-label">Title:</label>
@@ -263,27 +332,52 @@ class AdminMainMenu implements AdminInterfaces
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
         ';
-        echo '
-        <div class="card mx-auto w-50">
-            <div class="card-header">
-                <ul class="nav nav-pills card-header-pills">
-                    <li class="nav-item mx-1">
-                        <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
-                    </li>
-                    <li class="nav-item mx-1">
-                    <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
-                    </li>
-                    <li class="nav-item">
-                    <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
-                    <i class="bi bi-gear"></i>
-                    </button>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/CMS_Sprint/logout">Log out</a>
-                    </li>
-                </ul> 
-            </div>
-            <div class="card-body">
+        require 'bootstrap.php';
+        $approvals = $entityManager->getRepository('users')->findAll();
+        $app = $entityManager->getRepository('users')->findBy(array('name' => $_SESSION['username']));
+        foreach ($app as $app)
+        {
+            if($app->getName() == 'Admin')
+            {
+                echo '
+                <div class="card text-center mx-auto w-50">
+                    <div class="card-header">
+                        <ul class="nav nav-pills card-header-pills">
+                            <li class="nav-item mx-1">
+                                <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
+                            </li>
+                            <li class="nav-item mx-1">
+                            <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                            </li>
+                            <li class="nav-item">
+                            <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
+                            <i class="bi bi-gear"></i>
+                            </button>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
+                            </li>
+                        </ul> 
+                    </div>';
+            } else {
+                echo '
+                <div class="card text-center mx-auto w-50">
+                    <div class="card-header">
+                        <ul class="nav nav-pills card-header-pills">
+                            <li class="nav-item mx-1">
+                                <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
+                            </li>
+                            <li class="nav-item mx-1">
+                            <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
+                            </li>
+                        </ul> 
+                    </div>';
+            }
+        }
+            echo '<div class="card-body">
                 <form action="" method="POST">
                     <div class="mb-3">
                         <label for="Title" class="form-label">Title:</label>
