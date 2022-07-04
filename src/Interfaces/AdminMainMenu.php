@@ -4,6 +4,111 @@ require_once 'AdminInterfaces.php';
 
 class AdminMainMenu implements AdminInterfaces
 {
+    public function modal()
+    {
+                    /////////////////////////////////////MODAL/////////////////////////////////////
+                    echo '
+                    <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Dev mode options</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <a class="btn btn-primary w-100" href="/CMS_Sprint/?=Approvals">Approvals</a>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    ';
+    }
+
+    public function getApprovalsPage()
+    {
+        require 'bootstrap.php';
+        $approvals = $entityManager->getRepository('users')->findAll();
+        echo '
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+        ';
+        echo '
+        <div class="card text-center mx-auto w-50">
+            <div class="card-header">
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item mx-1">
+                        <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                    <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                    </li>
+                    <li class="nav-item">
+                    <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
+                    <i class="bi bi-gear"></i>
+                    </button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
+                    </li>
+                </ul> 
+            </div>';
+            echo '
+            <div class="card-body">
+            <h5 class="card-title">Manage Approvals</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Actions</th>
+                    </tr>';
+                foreach ($approvals as $approval){
+                    if($approval->getId() == 1)
+                    {
+
+                    } else if ($approval->getApproval() == 1)
+                    {
+                        echo '<tbody><tr>
+                        <td class="w-50">'. $approval->getId() .'(Approved)</td>
+                        <td class="w-50">'. $approval->getName() .'</td>
+                        <td class="btn-group w-100">
+                        <form action="" method="POST" class="mx-1">
+                        <input type="hidden" name="Decline" value="'. $approval->getId() .'"/>
+                        <input type="submit" value="Decline" class="btn btn-danger" />
+                        </form>
+                        <form action="" method="POST">
+                        <input type="hidden" name="Approve" value="'. $approval->getId() .'"/>
+                        <input type="submit" value="Approve" class="btn btn-success"/>
+                        </form></td></tbody></tr>';
+                    } else
+                    {
+                        echo '<tbody><tr>
+                        <td class="w-50">'. $approval->getId() .'</td>
+                        <td class="w-50">'. $approval->getName() .'</td>
+                        <td class="btn-group w-100">
+                        <form action="" method="POST" class="mx-1">
+                        <input type="hidden" name="Decline" value="'. $approval->getId() .'"/>
+                        <input type="submit" value="Decline" class="btn btn-danger" />
+                        </form>
+                        <form action="" method="POST">
+                        <input type="hidden" name="Approve" value="'. $approval->getId() .'"/>
+                        <input type="submit" value="Approve" class="btn btn-success"/>
+                        </form></td></tbody></tr>';
+                    }
+                }
+                echo '</thead>
+            </table>
+        </div>
+    </div>
+    ';
+    }
+
     public function getLogoutPage()
     {
         echo '
@@ -43,51 +148,59 @@ class AdminMainMenu implements AdminInterfaces
         {
             if(!isset($_GET['update']))
             {
-            echo '
-            <div class="card text-center mx-auto w-50">
-                <div class="card-header">
-                    <ul class="nav nav-pills card-header-pills">
-                        <li class="nav-item mx-1">
-                            <a class="nav-link active" href="#">Admin</a>
-                        </li>
-                        <li class="nav-item mx-1">
-                        <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
-                        </li>
-                    </ul> 
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Manage Pages</h5>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Page</th>
-                                <th scope="col">Actions</th>
-                            </tr>';
-                        foreach ($title as $t){
-                            echo '<tbody><tr>
-                            <td class="w-50">'. $t->getTitle() .'</td>
-                            <td class="btn-group w-100">
-                            <form action="" method="POST" class="mx-1">
-                            <input type="hidden" name="delete" value="'. $t->getId() .'"/>
-                            <input type="submit" value="Delete" class="btn btn-danger" />
-                            </form>
+                if($_SERVER['REQUEST_URI'] !== '/CMS_Sprint/?=Approvals')
+                {
+                    echo '
+                    <div class="card text-center mx-auto w-50">
+                        <div class="card-header">
+                            <ul class="nav nav-pills card-header-pills">
+                                <li class="nav-item mx-1">
+                                    <a class="nav-link active" href="#">Admin</a>
+                                </li>
+                                <li class="nav-item mx-1">
+                                <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                                </li>
+                                <li class="nav-item">
+                                <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
+                                <i class="bi bi-gear"></i>
+                                </button>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
+                                </li>
+                            </ul> 
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Manage Pages</h5>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Page</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>';
+                                foreach ($title as $t){
+                                    echo '<tbody><tr>
+                                    <td class="w-50">'. $t->getTitle() .'</td>
+                                    <td class="btn-group w-100">
+                                    <form action="" method="POST" class="mx-1">
+                                    <input type="hidden" name="delete" value="'. $t->getId() .'"/>
+                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                    </form>
+                                    <form action="" method="GET">
+                                    <input type="hidden" name="update" value="'. $t->getId() .'"/>
+                                    <input type="submit" value="Update" class="btn btn-success" />
+                                    </form></td></tbody></tr>';
+                                }
+                                echo '</thead>
+                            </table>
                             <form action="" method="GET">
-                            <input type="hidden" name="update" value="'. $t->getId() .'"/>
-                            <input type="submit" value="Update" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal"/>
-                            </form></td></tbody></tr>';
-                        }
-                        echo '</thead>
-                    </table>
-                    <form action="" method="GET">
-                        <input type="hidden" name="admin" value="Add_Page" class="btn btn-info"/>
-                        <input type="submit" value="Add Page" class="btn btn-info"/>
-                    </form>
-                </div>
-            </div>
-            ';
+                                <input type="hidden" name="admin" value="Add_Page" class="btn btn-info"/>
+                                <input type="submit" value="Add Page" class="btn btn-info"/>
+                            </form>
+                        </div>
+                    </div>
+                    ';
+                } 
             } else {
                 echo '
                 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -111,6 +224,11 @@ class AdminMainMenu implements AdminInterfaces
                             </li>
                             <li class="nav-item mx-1">
                             <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
+                                    <i class="bi bi-gear"></i>
+                                </button>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/CMS_Sprint/logout">Log out</a>
@@ -154,6 +272,11 @@ class AdminMainMenu implements AdminInterfaces
                     </li>
                     <li class="nav-item mx-1">
                     <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                    </li>
+                    <li class="nav-item">
+                    <button type="button" class="btn my-1" data-bs-toggle="modal" data-bs-target="#Modal">
+                    <i class="bi bi-gear"></i>
+                    </button>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/CMS_Sprint/logout">Log out</a>

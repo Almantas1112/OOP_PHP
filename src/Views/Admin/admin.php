@@ -6,9 +6,28 @@ if(null !== $_SESSION['valid'] and null !== $_SESSION['timeout'] and null !== $_
 {
     $mainMenu = new AdminMainMenu();
     $getMainMenu = $mainMenu->getAdminDashboard();
+    $mainMenu->modal();
     if(isset($_GET['admin']))
     {
         $getMainMenu = $mainMenu->getAdminPost();
+    } 
+    else if ($_SERVER['REQUEST_URI'] == '/CMS_Sprint/?=Approvals')
+    {
+        $mainMenu->getApprovalsPage();
+    }
+
+    if(isset($_POST['Decline']))
+    {
+        $declineId = $_POST['Decline'];
+        $decline = new dbFunction();
+        $decline->declineUser($declineId);
+    }
+
+    if(isset($_POST['Approve']))
+    {
+        $approveId = $_POST['Approve'];
+        $approve = new dbFunction();
+        $approve->approveUser($approveId);
     }
 
     if(isset($_POST['submit']))

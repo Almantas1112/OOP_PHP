@@ -7,4 +7,6 @@ interface AdminInterfaces
     public function getAdminRegister();
     public function getAdminLogin();
     public function getLogoutPage();
+    public function modal();
+    public function getApprovalsPage();
 }

@@ -11,9 +11,15 @@ switch($request){
     case '/CMS_Sprint/':
         require (__DIR__ . '/src/Views/index.php');
         break;
-    case '/CMS_Sprint/admin?update=' . @$_GET['update']:    ////
+    case '/CMS_Sprint/admin?update=' . @$_GET['update']:
         require (__DIR__ . '/src/Views/Admin/admin.php');
-        break;      /////
+        break;
+    case '/CMS_Sprint/?update=' . @$_GET['update']:
+        require (__DIR__ . '/src/Views/Admin/admin.php');
+        break;
+    case '/CMS_Sprint/?=Approvals':
+        require (__DIR__ . '/src/Views/Admin/admin.php');
+        break;
     case '/CMS_Sprint/index.php':
         require (__DIR__ . '/src/Views/index.php');
         break;
@@ -38,7 +44,10 @@ switch($request){
     case '/CMS_Sprint/admin?admin=Add_Page#';
         require (__DIR__ . '/src/Views/Admin/admin.php');
         break;
-        case '/CMS_Sprint/admin?admin=Add_Page';
+    case '/CMS_Sprint/admin?admin=Add_Page';
+        require (__DIR__ . '/src/Views/Admin/admin.php');
+        break;
+    case '/CMS_Sprint/?admin=Add_Page':
         require (__DIR__ . '/src/Views/Admin/admin.php');
         break;
     case '/CMS_Sprint/logout.php';

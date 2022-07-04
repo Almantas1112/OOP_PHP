@@ -40,9 +40,9 @@ class Users
     {
         $this->password = $password;
     }
-    public function setApproval()
+    public function setApproval($approved)
     {
-        return $this->approved;
+        $this->approved = $approved;
     }
     public function getName()
     {

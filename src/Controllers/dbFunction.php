@@ -82,4 +82,20 @@ class dbFunction
         $entityManager->flush();
         header("Location: /CMS_Sprint/admin");
     }
+    public function declineUser($id)
+    {
+        require 'bootstrap.php';
+        $decline = $entityManager->getRepository('users')->find($id);
+        $entityManager->remove($decline);
+        $entityManager->flush();
+        header("Location: /CMS_Sprint/?=Approvals");
+    }
+    public function approveUser($id)
+    {
+        require 'bootstrap.php';
+        $approve = $entityManager->getRepository('users')->find($id);
+        $approve->setApproval(1);
+        $entityManager->flush();
+        header("Location: /CMS_Sprint/?=Approvals");
+    }
 }
