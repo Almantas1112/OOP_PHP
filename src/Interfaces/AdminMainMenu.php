@@ -41,15 +41,20 @@ class AdminMainMenu implements AdminInterfaces
         ';
         if(!isset($_GET['admin']))
         {
+            if(!isset($_GET['update']))
+            {
             echo '
             <div class="card text-center mx-auto w-50">
                 <div class="card-header">
                     <ul class="nav nav-pills card-header-pills">
-                        <li class="nav-item">
+                        <li class="nav-item mx-1">
                             <a class="nav-link active" href="#">Admin</a>
                         </li>
+                        <li class="nav-item mx-1">
+                        <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/CMS_Sprint/logout">Log out</a>
+                            <a class="nav-link " href="/CMS_Sprint/logout">Log out</a>
                         </li>
                     </ul> 
                 </div>
@@ -70,8 +75,8 @@ class AdminMainMenu implements AdminInterfaces
                             <input type="submit" value="Delete" class="btn btn-danger" />
                             </form>
                             <form action="" method="GET">
-                            <input type="hidden" name="update" value=""/>
-                            <input type="submit" value="Update" class="btn btn-success"/>
+                            <input type="hidden" name="update" value="'. $t->getId() .'"/>
+                            <input type="submit" value="Update" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal"/>
                             </form></td></tbody></tr>';
                         }
                         echo '</thead>
@@ -83,6 +88,51 @@ class AdminMainMenu implements AdminInterfaces
                 </div>
             </div>
             ';
+            } else {
+                echo '
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+                ';
+                $name = $entityManager->getRepository('pages')->findBy(array('id' => $_GET['update']));
+                foreach ($name as $n)
+                {
+                    $pageTitle = $n->getTitle();
+                    $pageContent = $n->getContent();
+                }
+                echo '
+                <div class="card mx-auto w-50">
+                    <div class="card-header">
+                        <ul class="nav nav-pills card-header-pills">
+                            <li class="nav-item mx-1">
+                                <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
+                            </li>
+                            <li class="nav-item mx-1">
+                            <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/CMS_Sprint/logout">Log out</a>
+                            </li>
+                        </ul> 
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="POST">
+                            <div class="mb-3">
+                                <label for="Title" class="form-label">Title:</label>
+                                <input type="text" class="form-control" name="newTitle" id="Title" required value="'.$pageTitle.'">
+                            </div>
+                            <div class="mb-3">
+                            <label for="Content" class="form-label">Content:</label>
+                            <textarea class="form-control pb-5" name="newContent" id="Content" rows="3" required>'.$pageContent.'</textarea>
+                        </div>
+                            <input type="submit" name="updateContent" value="Submit" class="btn btn-info"/>
+                        </form>
+                    </div>
+                </div>
+                ';
+            }
         }
     }
 
@@ -99,8 +149,11 @@ class AdminMainMenu implements AdminInterfaces
         <div class="card mx-auto w-50">
             <div class="card-header">
                 <ul class="nav nav-pills card-header-pills">
-                    <li class="nav-item">
+                    <li class="nav-item mx-1">
                         <a class="nav-link active" href="/CMS_Sprint/admin">Admin</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                    <a class="nav-link bg-warning" href="/CMS_Sprint/">View website!</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/CMS_Sprint/logout">Log out</a>
@@ -161,6 +214,9 @@ class AdminMainMenu implements AdminInterfaces
                 <a href="index" class="btn btn-success"> Go and log in</a>
             </p>
         </form>
+        <p class="change_link">
+        <a class="btn btn-warning" href="/CMS_Sprint/">Home</a>
+        </p>
     </div>
         ';
     }
@@ -206,6 +262,9 @@ class AdminMainMenu implements AdminInterfaces
                                 <input type="submit" value="Join us now" class="btn btn-success"/>
                             </p>
                         </form>
+                        <p class="change_link">
+                            <a class="btn btn-warning" href="/CMS_Sprint/">Home</a>
+                        </p>
                     </div>
                 </div>
             </div>

@@ -73,4 +73,13 @@ class dbFunction
         $entityManager->flush();
         header("Location: /CMS_Sprint/admin");
     }
+    public function updatePage($id, $title, $content)
+    {
+        require 'bootstrap.php';
+        $newContent = $entityManager->getRepository('pages')->find($id);
+        $newContent->setTitle($title);
+        $newContent->setContent($content);
+        $entityManager->flush();
+        header("Location: /CMS_Sprint/admin");
+    }
 }

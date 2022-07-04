@@ -6,8 +6,10 @@ class Main implements MainInterfaces
 {
     public function index()
     {
+        require_once(realpath('src/Controllers/linkController.php'));
         require 'bootstrap.php';
         $title = $entityManager->getRepository('pages')->findAll();
+        $link = new linkController();
         echo '
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -60,7 +62,7 @@ class Main implements MainInterfaces
             }
             echo '</div>
             <div class="card-footer text-center">
-                © Almantas Anciūnas 2022 - '.date("Y").' CMS | TO ADMIN DASHBOARD -> <a class="btn btn-primary" href="/CMS_Sprint/admin/Main" role="button">ADMIN</a>
+                © Almantas Anciūnas 2022 - '.date("Y").' CMS | TO ADMIN DASHBOARD -> <a class="btn btn-primary" href="'.$link->link().'" role="button">ADMIN</a>
             </div>
         </div>
         <body>

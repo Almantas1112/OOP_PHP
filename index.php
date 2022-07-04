@@ -11,6 +11,9 @@ switch($request){
     case '/CMS_Sprint/':
         require (__DIR__ . '/src/Views/index.php');
         break;
+    case '/CMS_Sprint/admin?update=' . @$_GET['update']:    ////
+        require (__DIR__ . '/src/Views/Admin/admin.php');
+        break;      /////
     case '/CMS_Sprint/index.php':
         require (__DIR__ . '/src/Views/index.php');
         break;

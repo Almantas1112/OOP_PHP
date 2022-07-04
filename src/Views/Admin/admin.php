@@ -2,7 +2,7 @@
 require_once(realpath('src/Controllers/dbFunction.php'));
 require_once(realpath('src/Interfaces/AdminMainMenu.php'));
 session_start();
-if(null !== $_SESSION['valid'] and null !== $_SESSION['timeout'] and null !== ['username'])
+if(null !== $_SESSION['valid'] and null !== $_SESSION['timeout'] and null !== $_SESSION['username'])
 {
     $mainMenu = new AdminMainMenu();
     $getMainMenu = $mainMenu->getAdminDashboard();
@@ -10,6 +10,7 @@ if(null !== $_SESSION['valid'] and null !== $_SESSION['timeout'] and null !== ['
     {
         $getMainMenu = $mainMenu->getAdminPost();
     }
+
     if(isset($_POST['submit']))
     {
         $title = $_POST['title'];
@@ -28,11 +29,24 @@ if(null !== $_SESSION['valid'] and null !== $_SESSION['timeout'] and null !== ['
         }
 
     }
+
     if(isset($_POST['delete'])){
         $pageid = $_POST['delete'];
         $dbDelete = new dbFunction();
         $dbDelete->deletePage($pageid);
     }
+
+    if(isset($_GET['update'])){
+        if(isset($_POST['newTitle']) and isset($_POST['newContent']) and isset($_POST['updateContent']))
+        {
+            $id = $_GET['update'];
+            $newTitle = $_POST['newTitle'];
+            $newContent = $_POST['newContent'];
+            $update = new dbFunction();
+            $update->updatePage($id, $newTitle, $newContent);
+        }
+    }
+
 } else {
     header("Location: /CMS_Sprint/404");
 }
