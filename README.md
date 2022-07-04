@@ -25,5 +25,6 @@ In this page you can:
 3. OPTION 2: Open vscode terminal and use code "php composer.phar install" then use code "vendor/bin/doctrine orm:schema-tool:update --force --dump-sql" and create user with username Admin(IMPORTANT) and approve yourself in PhpMyAdmin or MySQL workbench (Admin username for DEV options, approval for logging into admin dashboard).
 4. Open xampp in apache line press config and press "PHP (php.ini)"
 5. In php.ini press ctrl+f and search for "include_path=" it should look like this "include_path=C:\xampp\php\PEAR". This option suppose to be blocked to run this project so change it to ";include_path=C:\xampp\php\PEAR" or just put ;(semi-colon) in front.
-6. Open web browser and put "http://localhost/CMS_Sprint/".
-7. ENJOY!
+6. Change mysql connection data in bootstrap.php!
+7. Open web browser and put "http://localhost/CMS_Sprint/".
+8. ENJOY!
